@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <title>Form-Validation</title>
+    <style>
+      body {
+        font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+      }
+      /* Form size and shadow */
+      #htmlForm {
+        box-shadow: 5px 5px 10px 2px rgba(36, 36, 36, 0.8);
+        width: 420px;
+        height: auto;
+      }
+      h1 {
+        padding: 0%;
+        margin: 0%;
+      }
+      /* Styled the heading and p tag separately from the form */
+      .container-signUp {
+        background-color: rgb(148, 26, 138);
+        color: white;
+        text-align: center;
+      }
+      .form-body {
+        padding: 10px;
+      }
+      /* Sizing the input fields */
+      input[type=text], 
+      input[type=email],
+      input[type=password] {
+        width: 180px;
+        height: 24px;
+        padding: 4px;
+      }
+      /* Position eye icon for password show/hide toggle function */
+      input[type=password] {
+        position: relative;
+      }
+      input:invalid {
+        background-color: ivory;
+        border: none;
+        outline: 3px solid red;
+        border-radius: 4px;
+      }
+      input:valid {
+        outline: none;
+        border: 3px solid rgb(180, 11, 180);
+        border-radius: 4px;
+      }
+      /* After click the input box will have a lighter blue border */
+      input:focus {
+        outline: none;
+        border: 3px solid rgb(228, 53, 228);
+        border-radius: 4px;
+      }
+      /* The input field can move around but, the icon will stay relative to the input */
+      .password-toggle-icon {
+        position: absolute;
+        margin: 10px 0px 0px -25px;
+      }
+      button {
+        background-color: rgb(148, 26, 138);;
+        border-radius: 4px;
+        color: white;
+        width: 190px;
+        height: 32px;
+        font-size: 20px;
+      }
+      .button-container {
+        display: flex;
+        justify-content: space-between;
+      }
+      label {
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      #javascriptForm {
+        width: 420px;
+        height: auto;
+        border: solid 6px purple;
+        border-radius: 20px;
+        display: flex;
+      }
+      #submitBtn {
+        background-color: rgb(148, 26, 138);;
+        border-radius: 4px;
+        color: white;
+        width: 190px;
+        height: 32px;
+        font-size: 20px;
+      }
+    </style>
+  </head>
+  <body>
+  <!--A form element is used to gather data from user inputs within the form. -->
+     <!-- The 'action' attribute defines what to do with the inputs after submit, 
+      I used 'post' for the method attribute because this form collects input data and sends
+      it to a file on a specific server, and not sent in the URL.-->
+    <h1>HTML Validation</h1> 
+    <form action="./" method="post" name="signup" id="htmlForm">
+      <div class="container-signUp">
+        <h1>Sign Up!</h1>
+        <p>Please fill out this form to create an account.</p>
+      </div>
+
+      <div class="form-body">
+        <!-- The for attribute needs to be the same value as an
+            id for the input it's associated with -->
+        <div>
+          <label for="user-name">Username: </label><br />
+          <!-- A text input field for a username with HTML validation
+          for length (minimum 5 characters) The 'name' attribute is the key for the value(input). -->
+          <input type="text" minlength="5" id="user-name" name="username" placeholder="Create username" autocomplete="username" required />
+        </div>
+
+        <br>
+        <!-- An email input field with HTML5 validation.-->
+        <div>
+          <label for="email">Email: </label><br />
+          <!-- The type attribute set to email...This will display a different keyboard that includes a '@' and also validates that the
+          user correctly formatted email. You can also set a pattern to look for w/the 'pattern' attribute.-->
+          <input type="email" name="email" id="email" placeholder="Enter email" autocomplete="on" required/>
+        </div>
+
+        <br>
+
+        <!-- A password input can be created by using the input element w/a type of 'password' -->
+         <!-- It automatically hides the input with bullets -->
+        <div class="password-container">
+          <label for="createPassword">Create Password:</label><br>
+          <!-- Must be at least 8 characters with 'minlength' attribute set to 8 -->
+          <input type="password" placeholder="Create Password" id="createPassword" name="password" autocomplete="new-password" required minlength="8"/>
+          <i class="password-toggle-icon" onclick="togglePwd()">
+              <img src="show.png" width="16" height="16" alt="eye icon to show/hide password"/>
+          </i>
+
+          <br><br>
+
+          <label for="confirmPassword">Confirm Password:</label><br>
+          <input type="password" placeholder="Confirm Password" name="confirmPassword" id="confirmPassword" autocomplete="new-password" required minlength="8"/>
+          <i class="password-toggle-icon" onclick="toggleConfirm()">
+              <img src="show.png" width="16" height="16" alt="eye icon to show/hide password" />
+          </i>
+          
+          <!--Checkboxes allow users to choose from a set of predefined options..With checkboxes they can select multiple
+          options at once.-->
+          <div id="rememberMe">
+            <input type="checkbox" id="updates" />
+            <label for="updates">Remember me</label>
+          </div>
+        </div>
+        <!-- Just adding this to make it look more realistic -->
+        <p>
+          By creating an account you agree to our
+          <a href="#" style="color: dodgerblue"> Terms & Privacy</a>.
+        </p>
+        <!-- A submit button Question: What is the difference btw using a input tag w/type=submit and button w/type=submit? -->
+        <div class="button-container">
+          <button type="submit">Create Account</button>
+          <!-- A reset button clears all data the user has entered in the form, by setting the 'type' attribute to 'reset'-->
+          <button type="reset">Clear Form</button>
+        </div>
+        <p style="text-align: center;">Already have an account? <a href="./">Log in</a>.</p>
+      </div>
+    </form>
+
+
+    
+    <br><br>
+    <h1>JavaScript Validation</h1>
+    <!-- JavaScript Validation Form -->
+    <form action="index.html"  method="post" name="login" id="javascriptForm" onsubmit="submitForm(event)">
+      <div class="container-signUp">
+        <h1>Log In!</h1>
+        <p>Enter your username or email and password.</p>
+        <p>Forgot <a href="#">Password</a>?</p>
+        <!-- Error messages for invalid inputs -->
+        <p id="name-invalid"></p>
+        <p id="email-invalid"></p>
+        <p id="password-invalid"></p>
+      </div>
+
+      <div class="form-body">
+        <!-- username JS validation for min 5 characters-->
+        <div>
+          <input type="text" id="user-name2" name="username" placeholder="Enter username" autocomplete="off">
+          <br><br>
+          <!-- email JS regex validation-->
+          <input type="text" name="email" id="email2" placeholder="Enter email" autocomplete="off">
+        </div>
+        
+       <br> 
+        
+      <!-- password JS validation-->
+        <div>
+          <input type="password" placeholder="Enter Password" id="enterPassword" name="password" autocomplete="off">
+          <i class="password-toggle-icon" onclick="togglePwd2()">
+            <img src="show.png" width="16" height="16" alt="eye icon to show/hide password"/>
+          </i>
+          <div id="rememberMe">
+            <input type="checkbox" id="login" />
+            <label for="login">Remember me</label>
+          </div>
+        </div>
+        <br>
+        <!-- Button as an input so I can customize behavior with JS. -->
+        <div>
+          <input type="submit" value="Log In" id="submitBtn">
+        </div>
+      </div>
+
+
+    </form>
+
+    <script>
+      //Checking to see if username is at least 5 characters long.
+      function isUsernameValid(username) {
+        if (username.length >= 5) {
+          return true;
+
+        }else {
+          return false;
+        }
+       }
+      //Test
+      console.log(isUsernameValid("Jennifer"));
+
+      //Checking to see if the email is valid.
+      //For, the regex the '/' at the start and end focus on the pattern, 
+      //The '^' represents the beginning of the string, the '$' represents the end, 
+      //The '[a-zA-Z0-9._-]' says the first part of the string can have uppercase and lowercase, numbers 0-9, and a ._-
+      //The '+' adds the second part of the string(email), must have a '@' then [a-zA-z 0-9.-] represents the email provider,
+      //followed by a '\.' the back slash is there to include the email provider section of the string followed by the '.',
+      // then the string(email) must have 2 to 4 letters for the '.com' or '.edu' or '.gov' part of an email.
+      function isEmailValid(email) {
+        let regex = /^[a-zA-Z0–9._-]+@[a-zA-Z0–9.-]+\.[a-zA-Z]{2,4}$/;
+        return regex.test(email);
+      }
+      //Test
+      console.log(isEmailValid("jennifertarleton@gmail.com"));
+
+      //Checking to see if password is at least 8 characters long and has
+      //at least 1 special character.This regex I just told it to focus on all the special characters and then,
+      //.test() to check if any of the characters are in the password input field.
+      function isPasswordValid(password) {
+        let specialChar = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
+        if (password.length >= 8 && specialChar.test(password)) {
+          return true;
+        }else {
+          return false;
+        }
+      }
+      //Test
+      console.log(isPasswordValid("password@"));
+
+      //Paragraph tags w/invalid message
+      let username = document.getElementById("name-invalid");
+      let email = document.getElementById("email-invalid");
+      let pwd = document.getElementById("password-invalid");
+      //Input elements
+      let nameInput = document.getElementById("user-name2");
+      let emailInput = document.getElementById("email2");
+      let pwdInput = document.getElementById("enterPassword");
+      //Validating all the inputs based on the boolean value they got from their functions above
+      function validateUsername() {
+        console.log('Hello World!');
+        //Get the value
+        let input = nameInput.value;
+        //Is it valid?
+        let isValid = isUsernameValid(input);
+        if(isValid) {
+          nameInput.style.border = "3px solid green"
+          //Empty string to clear invalid message when the user gets to the valid input
+          username.textContent = "";
+          //Test to make sure it's working
+          console.log("You entered an valid username.");
+        }else {
+          nameInput.style.border = "3px solid red"
+          username.innerHTML = 'Please enter a username that is at least 5 characters long';
+        }
+      }
+      // Used input to update the field as the user types. 
+      nameInput.addEventListener('input', validateUsername); 
+      
+      function validateEmail() {
+        console.log('Hello World');
+        //Get the value
+        let input = emailInput.value;
+        //Is it valid?
+        let isValid = isEmailValid(input);
+        if (isValid) { //if true change the input field to a green border
+          emailInput.style.border = "3px solid green"
+          //Change the text content in the password error paragraph to an empty string to 
+          //clear invalid message when the user gets to the valid format.
+          email.textContent = "";
+          console.log("You entered a valid email.");
+        }else {
+          emailInput.style.border = "3px solid red"
+          email.innerHTML = 'Please enter a email with valid format.';
+        }
+      }
+      // Used input to update the field as the user types. 
+      emailInput.addEventListener('input', validateEmail);
+      
+      function validatePwd() {
+        console.log('Hello World');
+        //Get the value
+        let input = pwdInput.value;
+        //Is it valid?
+        let isValid = isPasswordValid(input);
+        if (isValid) {
+          pwdInput.style.border = "3px solid green"
+          //Change the text content in the password error paragraph to an empty string to 
+          //clear invalid message when the user gets to the valid input.
+          pwd.textContent = "";
+          console.log("You entered a valid password.");
+        }else {
+          pwdInput.style.border = "3px solid red"
+          //Display message on the HTML document
+          pwd.innerHTML = 'Please enter a password with at least one special character and at least 8 characters long.';
+        }
+      }
+      // Used input to update the field as the user types. 
+      pwdInput.addEventListener('input', validatePwd);
+
+
+      // Validate form using the validate functions for each input
+        function validateForm() {
+          // Getting the input values
+          let name = document.forms["login"]["username"].value;
+          let email = document.forms["login"]["email"].value;
+          let password = document.forms["login"]["password"].value;
+          // Setting variables for the inputs that run thru the validate functions
+          let n = validateUsername(name);
+          let e = validateEmail(email);
+          let p = validatePwd(password);
+          // if username not true "!"
+          if (!isUsernameValid(name)) {
+            return n; //return validate function result for username
+          }if (!isEmailValid(email)) {
+            return e; //return validate function result for email
+          }if (!isPasswordValid(password)) {
+            return p; //return validate function result for pwd
+          }
+          // If all inputs pass return true to submit form
+          return true;
+        }
+        // Function to submit form on submit. 
+        function submitForm() {
+          // Prevent form from being submitted set event in the function call on the onsubmit
+          event.preventDefault(); 
+          //if validate form is false, the '!' says if --> the opposite of true. 
+          if(!validateForm()) {
+            return //return to stop submit
+          }
+          //Submit form or alert user that they are logged in
+          alert("Success! You are logged in!");
+          //Reset form
+          document.forms["login"].reset();
+          nameInput.style.border = "3px solid rgb(180, 11, 180)";
+          emailInput.style.border = "3px solid rgb(180, 11, 180)";
+          pwdInput.style.border = "3px solid rgb(180, 11, 180)";
+        }
+       
+      // Show/hide passwords 'create password'
+      function togglePwd() {
+        let pwd = document.getElementById("createPassword");
+        if (pwd.type === "password") { //if password type is all bullets
+          pwd.type = "text"; //switch it to text
+        } else {
+          pwd.type = "password"; //if it's text then switch it to bullets
+        }
+      }
+      //Show/hide passwords 'confirm password'
+      function toggleConfirm() {
+        let confirm = document.getElementById("confirmPassword");
+        if (confirm.type === "password") {
+          confirm.type = "text";
+        } else {
+          confirm.type = "password";
+        }
+      }
+      // Second form...login form...Show/hide password 'enter password'
+      function togglePwd2() {
+        let pwd = document.getElementById("enterPassword");
+        if (pwd.type === "password") {
+          pwd.type = "text";
+        } else {
+          pwd.type = "password";
+        }
+      }
+    </script>
+    
+  </body>
+</html>
